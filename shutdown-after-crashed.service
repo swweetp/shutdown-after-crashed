@@ -1,0 +1,10 @@
+[Unit]
+Description=Shutdown gracefully on next boot after crash
+Requisite=last-shutdown-unexpected.target
+After=last-shutdown-unexpected.target multi-user.target
+
+[Service]
+ExecStart=/usr/bin/systemctl poweroff
+
+[Install]
+WantedBy=last-shutdown-unexpected.target

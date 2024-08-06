@@ -1,0 +1,4 @@
+[Unit]
+Description=Last shutdown was unexpected
+Requisite=last-shutdown-unexpected.service
+After=last-shutdown-unexpected.service

@@ -1,0 +1,12 @@
+[Unit]
+Description=Last Boot Crashed
+Requires=last-shutdown-unexpected.target
+
+[Service]
+Type=oneshot
+ExecCondition=/usr/bin/bash -c "last -xT | awk -F '\t' '{print $2}' | grep system | awk 'NR==2' | grep -q 'system boot'"
+ExecStart=/usr/bin/true
+RemainAfterExit=1
+
+[Install]
+WantedBy=multi-user.target
