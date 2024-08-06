@@ -1,10 +1,12 @@
 [Unit]
 Description=Shutdown gracefully on next boot after crash
-Requisite=last-shutdown-unexpected.target
-After=last-shutdown-unexpected.target multi-user.target
+After=multi-user.target
 
 [Service]
+Type=oneshot
+ExecCondition=/usr/bin/bash -c "last -xT | awk -F '\t' '{print $2}' | grep system | awk 'NR==2' | grep -q 'system boot'"
 ExecStart=/usr/bin/systemctl poweroff
+RemainAfterExit=1
 
 [Install]
-WantedBy=last-shutdown-unexpected.target
+WantedBy=multi-user.target
